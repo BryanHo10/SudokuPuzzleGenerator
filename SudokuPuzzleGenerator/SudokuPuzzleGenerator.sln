@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuPuzzleGenerator", "SudokuPuzzleGenerator.csproj", "{7021D68E-3887-45A5-8265-5A2DA5AA3DFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7021D68E-3887-45A5-8265-5A2DA5AA3DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7021D68E-3887-45A5-8265-5A2DA5AA3DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7021D68E-3887-45A5-8265-5A2DA5AA3DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7021D68E-3887-45A5-8265-5A2DA5AA3DFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35B34BC2-12AD-4D57-991B-B80AAE03A7A1}
+	EndGlobalSection
+EndGlobal
