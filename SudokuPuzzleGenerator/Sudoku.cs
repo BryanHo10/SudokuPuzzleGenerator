@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SudokuPuzzleGenerator
 {
@@ -24,7 +25,26 @@ namespace SudokuPuzzleGenerator
                 Console.WriteLine();
             }
         }
-        public 
+        public void importPuzzle()
+        {
+
+        }
+        public void importPuzzleFromFile(string filePath)
+        {
+
+        }
+        public void exportPuzzle(string filePath)
+        {
+            string output = "";
+            for (int Column_Position = 0; Column_Position < ColSize; Column_Position++)
+            {
+                foreach (List<int> cellVal in PuzzleGrid)
+                {
+                    output+=($"{cellVal[Column_Position]}, ");
+                }
+            }
+            File.WriteAllText(filePath,output);
+        }
 
     }
 }
