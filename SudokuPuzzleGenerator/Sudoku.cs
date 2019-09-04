@@ -7,27 +7,27 @@ namespace SudokuPuzzleGenerator
     public class Sudoku
     {
         private int RowSize,ColSize;
-        public List<List<int>> PuzzleGrid;
+        public List<List<int>> Grid;
         
         public Sudoku()
         {
             RowSize = ColSize = 9;
-            PuzzleGrid = new List<List<int>>();
+            Grid = new List<List<int>>();
         }
         public void printPuzzle()
         {
-            for(int Column_Position = 0; Column_Position < ColSize; Column_Position++)
+            for(int colPosition = 0; colPosition < ColSize; colPosition++)
             {
-                foreach(List<int> cellVal in PuzzleGrid)
+                foreach(List<int> cellVal in Grid)
                 {
-                    Console.Write($" {cellVal[Column_Position]} ");
+                    Console.Write($" {cellVal[colPosition]} ");
                 }
                 Console.WriteLine();
             }
         }
         public void importPuzzle(List<List<int>> input)
         {
-            PuzzleGrid = input;
+            Grid = input;
         }
         public void importPuzzleFromFile(string filePath)
         {
@@ -42,17 +42,17 @@ namespace SudokuPuzzleGenerator
                 {
                     rowPosition += 1;
                 }
-                PuzzleGrid[rowPosition].Add(Int32.Parse(inputString[i]));
+                Grid[rowPosition].Add(Int32.Parse(inputString[i]));
             }
         }
         public void exportPuzzle(string filePath)
         {
             string output = "";
-            for (int Column_Position = 0; Column_Position < ColSize; Column_Position++)
+            for (int colPosition = 0; colPosition < ColSize; colPosition++)
             {
-                foreach (List<int> cellVal in PuzzleGrid)
+                foreach (List<int> cellVal in Grid)
                 {
-                    output+=($"{cellVal[Column_Position]}, ");
+                    output+=($"{cellVal[colPosition]}, ");
                 }
             }
             File.WriteAllText(filePath,output);
