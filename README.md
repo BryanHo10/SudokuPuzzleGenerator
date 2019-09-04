@@ -1,2 +1,3 @@
-# SudokuPuzzleGenerator
-Generates Solvable Sudoku Puzzles
+# SudokuLibrary
+
+> Library that creates new Sudoku Puzzles 

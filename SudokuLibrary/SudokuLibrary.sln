@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuPuzzleGenerator", "SudokuPuzzleGenerator.csproj", "{7021D68E-3887-45A5-8265-5A2DA5AA3DFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuLibrary", "SudokuLibrary.csproj", "{7021D68E-3887-45A5-8265-5A2DA5AA3DFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace SudokuPuzzleGenerator
+namespace SudokuLibrary
 {
     public class Sudoku
     {
