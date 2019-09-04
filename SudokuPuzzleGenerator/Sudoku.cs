@@ -6,17 +6,17 @@ namespace SudokuPuzzleGenerator
 {
     public class Sudoku
     {
-        private int RowSize,ColSize;
+        private const int ROWSIZE = 9;
+        private const int COLSIZE = 9;
         public List<List<int>> Grid;
         
         public Sudoku()
         {
-            RowSize = ColSize = 9;
             Grid = new List<List<int>>();
         }
         public void printPuzzle()
         {
-            for(int colPosition = 0; colPosition < ColSize; colPosition++)
+            for(int colPosition = 0; colPosition < COLSIZE; colPosition++)
             {
                 foreach(List<int> cellVal in Grid)
                 {
@@ -48,7 +48,7 @@ namespace SudokuPuzzleGenerator
         public void exportPuzzle(string filePath)
         {
             string output = "";
-            for (int colPosition = 0; colPosition < ColSize; colPosition++)
+            for (int colPosition = 0; colPosition < COLSIZE; colPosition++)
             {
                 foreach (List<int> cellVal in Grid)
                 {
