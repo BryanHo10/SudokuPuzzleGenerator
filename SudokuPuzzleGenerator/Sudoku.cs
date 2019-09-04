@@ -25,13 +25,25 @@ namespace SudokuPuzzleGenerator
                 Console.WriteLine();
             }
         }
-        public void importPuzzle()
+        public void importPuzzle(List<List<int>> input)
         {
-
+            PuzzleGrid = input;
         }
         public void importPuzzleFromFile(string filePath)
         {
+            
+            char[] separator = { ',', ' ' };
+            string[] inputString = File.ReadAllText(filePath).Split(separator);
+            int rowPosition = -1;
 
+            for(int i = 0; i < inputString.Length; i++)
+            {
+                if(i % 9 == 0)
+                {
+                    rowPosition += 1;
+                }
+                PuzzleGrid[rowPosition].Add(Int32.Parse(inputString[i]));
+            }
         }
         public void exportPuzzle(string filePath)
         {

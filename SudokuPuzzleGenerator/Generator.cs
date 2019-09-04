@@ -6,5 +6,12 @@ namespace SudokuPuzzleGenerator
 {
     class Generator
     {
+        Sudoku puzzle;
+        public Generator()
+        {
+            puzzle = new Sudoku();
+        }
+
+        public Sudoku solvePuzzle
     }
 }
