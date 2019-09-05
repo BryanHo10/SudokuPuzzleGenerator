@@ -17,12 +17,15 @@ namespace SudokuLibrary
             Puzzle = new Sudoku();
         }
 
-        public void createNewSolution()
+        public Sudoku CreateNewSolution()
         {
-            populateCells();
+            Puzzle = PopulateCells();
+
+            return Puzzle;
         }
-        private void populateCells()
+        private Sudoku PopulateCells()
         {
+            Sudoku randomizedGrid = new Sudoku();
             List<int> allowedValues = new List<int> {1,2,3,4,5,6,7,8,9 };
             for (int i = 0; i < 3; i++)
             {
@@ -34,14 +37,15 @@ namespace SudokuLibrary
                     {
                         for (int h = 0; h < 3; h++)
                         {
-                            Puzzle.Grid[(3*j)+k][(3*i)+h] = allowedValues[count];
+                            randomizedGrid.Grid[(3*j)+k][(3*i)+h] = allowedValues[count];
                             count++;
                         }
                     }
                 }
             }
+            return randomizedGrid;
         }
-        private void sortGrid()
+        private void SortGrid()
         {
 
         }
@@ -50,18 +54,18 @@ namespace SudokuLibrary
         /// </summary>
         /// <param name="cells"></param>
         /// <returns></returns>
-        public bool tryRemoveValues(int cells)
+        public bool TryRemoveValues(int cells)
         {
             if (EmptyCells + cells >= 81)
                 return false;
-            removeValues(cells);
+            RemoveValues(cells);
             return true;
         }
         /// <summary>
         /// Sets random cells in the grid to 0.
         /// </summary>
         /// <param name="cells"></param>
-        private void removeValues(int cells)
+        private void RemoveValues(int cells)
         {
             Random rng = new Random();
             int counter = 0;

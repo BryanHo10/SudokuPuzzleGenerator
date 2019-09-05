@@ -12,9 +12,14 @@ namespace SudokuLibrary
         
         public Sudoku()
         {
-            Grid = new List<List<int>>();
+            int[] defaultVal = new int[9];
+            Grid = new List<List<int>>(9);
+            for(int i = 0;i<ROWSIZE;i++)
+            {
+                Grid.Add(new List<int>(defaultVal));
+            }
         }
-        public void printPuzzle()
+        public void PrintPuzzle()
         {
             for(int colPosition = 0; colPosition < COLSIZE; colPosition++)
             {
@@ -25,11 +30,25 @@ namespace SudokuLibrary
                 Console.WriteLine();
             }
         }
-        public void importPuzzle(List<List<int>> input)
+        /// <summary>
+        /// Attempts to assign a custom Sudoku grid (9 row and 9 column)
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public bool TryImportPuzzle(List<List<int>> input)
         {
-            Grid = input;
+            if(input.Count == 9 && input[0].Count == 9)
+            {
+                Grid = input;
+                return true;
+            }
+            return false;
         }
-        public void importPuzzleFromFile(string filePath)
+        /// <summary>
+        /// Imports CSV values to the Sudoku grid from left to right, top to bottom.
+        /// </summary>
+        /// <param name="filePath"></param>
+        public void ImportPuzzleFromFile(string filePath)
         {
             
             char[] separator = { ',', ' ' };
@@ -45,7 +64,11 @@ namespace SudokuLibrary
                 Grid[rowPosition].Add(Int32.Parse(inputString[i]));
             }
         }
-        public void exportPuzzle(string filePath)
+        /// <summary>
+        /// Exports Sudoku grid from left to right, top to bottom to CSV format
+        /// </summary>
+        /// <param name="filePath"></param>
+        public void ExportPuzzle(string filePath)
         {
             string output = "";
             for (int colPosition = 0; colPosition < COLSIZE; colPosition++)
