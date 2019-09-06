@@ -45,7 +45,30 @@ namespace SudokuLibrary
             }
             return randomizedGrid;
         }
-        private void SortGrid()
+        /// <summary>
+        /// Handles the row and column sorting
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public Sudoku SortGrid(Sudoku input)
+        {
+            Sudoku sortingGrid = input;
+            int CurrentRow = 0;
+            int CurrentCol = 0;
+            while (CurrentCol < COLSIZE && CurrentRow < ROWSIZE)
+            {
+                SortRow(CurrentRow);
+                CurrentRow++;
+                SortColumn(CurrentCol);
+                CurrentCol++;
+            }
+            return sortingGrid;
+        }
+        private Sudoku SortRow(int RowPosition)
+        {
+
+        }
+        private Sudoku SortColumn(int ColumnPosition)
         {
 
         }
