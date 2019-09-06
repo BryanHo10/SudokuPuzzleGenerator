@@ -19,6 +19,9 @@ namespace SudokuLibrary
                 Grid.Add(new List<int>(defaultVal));
             }
         }
+        /// <summary>
+        /// Outputs Grid contents to console
+        /// </summary>
         public void PrintPuzzle()
         {
             for(int colPosition = 0; colPosition < COLSIZE; colPosition++)
