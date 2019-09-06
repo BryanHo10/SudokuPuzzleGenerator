@@ -8,15 +8,15 @@ namespace SudokuLibrary
     {
         private const int ROWSIZE = 9;
         private const int COLSIZE = 9;
-        public List<List<int>> Grid;
+        public List<List<Cell>> Grid;
         
         public Sudoku()
         {
-            int[] defaultVal = new int[9];
-            Grid = new List<List<int>>(9);
+            Cell[] defaultVal = new Cell[9];
+            Grid = new List<List<Cell>>(9);
             for(int i = 0;i<ROWSIZE;i++)
             {
-                Grid.Add(new List<int>(defaultVal));
+                Grid.Add(new List<Cell>(defaultVal));
             }
         }
         /// <summary>
@@ -26,9 +26,9 @@ namespace SudokuLibrary
         {
             for(int colPosition = 0; colPosition < COLSIZE; colPosition++)
             {
-                foreach(List<int> cellVal in Grid)
+                foreach(List<Cell> cellVal in Grid)
                 {
-                    Console.Write($" {cellVal[colPosition]} ");
+                    Console.Write($" {cellVal[colPosition].Value} ");
                 }
                 Console.WriteLine();
             }
@@ -38,7 +38,7 @@ namespace SudokuLibrary
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public bool TryImportPuzzle(List<List<int>> input)
+        public bool TryImportPuzzle(List<List<Cell>> input)
         {
             if(input.Count == 9 && input[0].Count == 9)
             {
@@ -64,7 +64,7 @@ namespace SudokuLibrary
                 {
                     rowPosition += 1;
                 }
-                Grid[rowPosition].Add(Int32.Parse(inputString[i]));
+                Grid[rowPosition].Add(new Cell(Int32.Parse(inputString[i])));
             }
         }
         /// <summary>
@@ -76,9 +76,9 @@ namespace SudokuLibrary
             string output = "";
             for (int colPosition = 0; colPosition < COLSIZE; colPosition++)
             {
-                foreach (List<int> cellVal in Grid)
+                foreach (List<Cell> cellVal in Grid)
                 {
-                    output+=($"{cellVal[colPosition]}, ");
+                    output+=($"{cellVal[colPosition].Value}, ");
                 }
             }
             File.WriteAllText(filePath,output);

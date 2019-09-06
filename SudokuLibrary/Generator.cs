@@ -37,7 +37,7 @@ namespace SudokuLibrary
                     {
                         for (int h = 0; h < 3; h++)
                         {
-                            randomizedGrid.Grid[(3*j)+k][(3*i)+h] = allowedValues[count];
+                            randomizedGrid.Grid[(3*j)+k][(3*i)+h].Value = allowedValues[count];
                             count++;
                         }
                     }
@@ -73,9 +73,9 @@ namespace SudokuLibrary
             {
                 int randColIndex = rng.Next(0, 9);
                 int randRowIndex = rng.Next(0, 9);
-                if(Puzzle.Grid[randColIndex][randRowIndex] != 0)
+                if(Puzzle.Grid[randColIndex][randRowIndex].Value != 0)
                 {
-                    Puzzle.Grid[randColIndex][randRowIndex] = 0;
+                    Puzzle.Grid[randColIndex][randRowIndex].Value = 0;
                     counter++;
                 }                
             }
