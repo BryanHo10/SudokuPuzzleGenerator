@@ -4,6 +4,11 @@ using System.IO;
 
 namespace SudokuLibrary
 {
+    public enum ViewOrientation
+    {
+        ROW = 0,
+        COLUMN = 1
+    }
     public class Sudoku
     {
         private const int ROWSIZE = 9;

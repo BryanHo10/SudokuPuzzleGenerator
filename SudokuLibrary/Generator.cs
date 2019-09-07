@@ -20,13 +20,13 @@ namespace SudokuLibrary
         public Sudoku CreateNewSolution()
         {
             Puzzle = PopulateCells();
-
+            Puzzle = SortGrid(Puzzle);
             return Puzzle;
         }
         private Sudoku PopulateCells()
         {
             Sudoku randomizedGrid = new Sudoku();
-            List<int> allowedValues = new List<int> {1,2,3,4,5,6,7,8,9 };
+            List<int> allowedValues = new List<int> { 1,2,3,4,5,6,7,8,9 };
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -46,7 +46,7 @@ namespace SudokuLibrary
             return randomizedGrid;
         }
         /// <summary>
-        /// Handles the row and column sorting
+        /// Handles Row and Column sorting
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -57,20 +57,66 @@ namespace SudokuLibrary
             int CurrentCol = 0;
             while (CurrentCol < COLSIZE && CurrentRow < ROWSIZE)
             {
-                SortRow(CurrentRow);
+                sortingGrid = SortRow(CurrentRow,sortingGrid);
                 CurrentRow++;
-                SortColumn(CurrentCol);
+                sortingGrid = SortColumn(CurrentCol,sortingGrid);
                 CurrentCol++;
             }
             return sortingGrid;
         }
-        private Sudoku SortRow(int RowPosition)
+        private Sudoku SortRow(int RowPosition,Sudoku inputPuzzle)
         {
+            List<int> RecordedValues = new List<int>();
+            foreach(List<Cell> ColumnSet in inputPuzzle.Grid)
+            {
+                Cell currentCell = ColumnSet[RowPosition];
+                if(currentCell.isSorted)
+                {
+                    RecordedValues.Add(currentCell.Value);
+                }
+                else if(!RecordedValues.Contains(currentCell.Value))
+                {
+                    ColumnSet[RowPosition].isSorted = true;
+                    RecordedValues.Add(currentCell.Value);
+                }
+                else
+                {
 
+                }
+            }
+            return inputPuzzle;
         }
-        private Sudoku SortColumn(int ColumnPosition)
+        private Sudoku SortColumn(int ColumnPosition,Sudoku inputPuzzle)
         {
+            List<int> RecordedValues = new List<int>();
+            foreach(Cell RowValue in inputPuzzle.Grid[ColumnPosition])
+            {
+                if(RowValue.isSorted)
+                {
+                    RecordedValues.Add(RowValue.Value);
+                }
+                else if(!RecordedValues.Contains(RowValue.Value))
+                {
+                    RowValue.isSorted = true;
+                    RecordedValues.Add(RowValue.Value);
+                }
+                else
+                {
 
+                }
+
+            }
+            return inputPuzzle;
+        }
+        /// <summary>
+        /// Swaps Duplicate value in current Row/Column with a unsorted unique value
+        /// </summary>
+        /// <param name="duplicate"></param>
+        /// <param name="inputPuzzle"></param>
+        /// <returns></returns>
+        private Sudoku BoxAdjacentCellSwap(Cell duplicate, Sudoku inputPuzzle,ViewOrientation focus)
+        {
+            return inputPuzzle;
         }
         /// <summary>
         /// Will attempt to remove values from the solution.
