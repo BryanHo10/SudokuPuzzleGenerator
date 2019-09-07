@@ -116,7 +116,43 @@ namespace SudokuLibrary
         /// <returns></returns>
         private Sudoku BoxAdjacentCellSwap(Cell duplicate, Sudoku inputPuzzle,ViewOrientation focus)
         {
+            if(focus == ViewOrientation.ROW)
+            {
+
+            }
+            else
+            {
+
+            }
+
             return inputPuzzle;
+        }
+        private List<Cell> SearchBox(Cell duplicate, ViewOrientation focus, Sudoku inputPuzzle)
+        {
+            List<Cell> UnregisteredCells = new List<Cell>();
+            int startRow = (duplicate.RowPosition / 3) * 3;
+            int startCol = (duplicate.ColumnPosition / 3) * 3;
+
+            for(int row = startRow;row < startRow + 3; row++)
+            {
+                if(focus == ViewOrientation.ROW && duplicate.RowPosition == row)
+                {
+                    continue;
+                }
+
+                for(int col = startCol; col < startCol + 3; col++)
+                {
+                    if (focus == ViewOrientation.COLUMN && duplicate.ColumnPosition == col)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        UnregisteredCells.Add(inputPuzzle.Grid[col][row]);
+                    }
+                }
+            }
+            return UnregisteredCells;
         }
         /// <summary>
         /// Will attempt to remove values from the solution.
@@ -150,7 +186,7 @@ namespace SudokuLibrary
             }
             EmptyCells += cells;
         }
-        public List<T> Shuffle<T>(List<T> list)
+        private List<T> Shuffle<T>(List<T> list)
         {
             Random rng = new Random();
 
