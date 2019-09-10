@@ -18,7 +18,7 @@ namespace SudokuLibrary
         /// Checks validity of cell values in puzzle
         /// </summary>
         /// <returns></returns>
-        public bool CheckAllSync()
+        public bool CheckAllCells()
         {
             foreach(List<Cell> ColumnSet in CurrentSolution.Grid)
             {
@@ -26,21 +26,66 @@ namespace SudokuLibrary
                 {
                     if (!CheckColumn(CellSpace))
                         return false;
-                    if (!CheckRow(CellSpace))
+                    else if (!CheckRow(CellSpace))
                         return false;
-                    if (!CheckNeighbor(CellSpace))
+                    else if (!CheckNeighbor(CellSpace))
                         return false;
                 }
             }
             return true;
         }
         /// <summary>
-        /// Checks Validity of Cell Values Asynchronously
+        /// Returns all invalid cells
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> CheckAllAsync()
+        public List<Cell> GetInvalidCellsSync()
         {
-            return true;
+            List<Cell> InvalidCells = new List<Cell>();
+            foreach (List<Cell> ColumnSet in CurrentSolution.Grid)
+            {
+                foreach (Cell CellSpace in ColumnSet)
+                {
+                    if (!CheckColumn(CellSpace))
+                        InvalidCells.Add(CellSpace);
+                    else if (!CheckRow(CellSpace))
+                        InvalidCells.Add(CellSpace);
+                    else if (!CheckNeighbor(CellSpace))
+                        InvalidCells.Add(CellSpace);
+                }
+            }
+            return InvalidCells;
+        }
+        /// <summary>
+        /// REturns invalid cells asynchronously
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Cell>> GetInvalidCellsAsync()
+        {
+            List<Cell> InvalidCells = new List<Cell>();
+            List<Task<Cell>> tasks = new List<Task<Cell>>();
+            foreach (List<Cell> ColumnSet in CurrentSolution.Grid)
+            {
+                foreach (Cell CellSpace in ColumnSet)
+                {
+                    tasks.Add(Task.Run(() => CheckCurrentCell(CellSpace)));
+                }
+            }
+            var results = await Task.WhenAll(tasks);
+            foreach (Cell item in results)
+            {
+                InvalidCells.Add(item);
+            }
+            return InvalidCells;
+        }
+        private Cell CheckCurrentCell(Cell CurrentCell)
+        {
+            if (!CheckColumn(CurrentCell))
+                return CurrentCell;
+            else if (!CheckRow(CurrentCell))
+                return CurrentCell;
+            else if (!CheckNeighbor(CurrentCell))
+                return CurrentCell;
+            return null;
         }
         public bool CheckRow(Cell CurrentCell)
         {

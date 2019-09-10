@@ -20,11 +20,14 @@ namespace SudokuLibrary.Models
             Cell[] defaultVal = new Cell[ROWSIZE];
 
             Grid = new List<List<Cell>>(COLSIZE);
-            for(int i = 0;i<ROWSIZE;i++)
+            for(int colIndex = 0; colIndex < COLSIZE; colIndex++)
             {
-                for (int index = 0; index < ROWSIZE; index++)
+                for (int rowIndex = 0; rowIndex < ROWSIZE; rowIndex++)
                 {
-                    defaultVal[index] = new Cell();
+                    defaultVal[rowIndex] = new Cell{
+                        RowPosition = rowIndex,
+                        ColumnPosition = colIndex
+                    };
                 }
                 Grid.Add(new List<Cell>(defaultVal));
             }
