@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SudokuLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,11 +8,8 @@ namespace SudokuLibrary
 {
     public class Check
     {
-        Sudoku CurrentSolution;
-        public Check()
-        {
+        private Sudoku CurrentSolution;
 
-        }
         public Check(Sudoku puzzle)
         {
             CurrentSolution = puzzle;
@@ -102,6 +100,7 @@ namespace SudokuLibrary
                 }
             }
             return true;
+        }
 
     }
 }

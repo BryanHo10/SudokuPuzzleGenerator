@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace SudokuLibrary
+namespace SudokuLibrary.Models
 {
     public enum ViewOrientation
     {
@@ -17,10 +17,15 @@ namespace SudokuLibrary
         
         public Sudoku()
         {
-            Cell[] defaultVal = new Cell[9];
-            Grid = new List<List<Cell>>(9);
+            Cell[] defaultVal = new Cell[ROWSIZE];
+
+            Grid = new List<List<Cell>>(COLSIZE);
             for(int i = 0;i<ROWSIZE;i++)
             {
+                for (int index = 0; index < ROWSIZE; index++)
+                {
+                    defaultVal[index] = new Cell();
+                }
                 Grid.Add(new List<Cell>(defaultVal));
             }
         }
