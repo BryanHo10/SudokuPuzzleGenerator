@@ -58,20 +58,25 @@ namespace SudokuLibrary
             int CurrentCol = 0;
             while (CurrentCol < COLSIZE && CurrentRow < ROWSIZE)
             {
-                sortingGrid = SortRow(CurrentRow,sortingGrid);
+                SortRow(CurrentRow,sortingGrid);
                 CurrentRow++;
-                sortingGrid = SortColumn(CurrentCol,sortingGrid);
+                SortColumn(CurrentCol,sortingGrid);
                 CurrentCol++;
             }
             return sortingGrid;
         }
-        private Sudoku SortRow(int RowPosition,Sudoku inputPuzzle)
+        private void SortRow(int RowPosition,Sudoku inputPuzzle)
         {
             List<int> RecordedValues = new List<int>();
             foreach(List<Cell> ColumnSet in inputPuzzle.Grid)
             {
                 Cell currentCell = ColumnSet[RowPosition];
-                if(currentCell.isSorted)
+                if (currentCell.Value == RecordedValues[RecordedValues.Count - 1])
+                {
+                    TryHotSwitch(currentCell, RecordedValues, ViewOrientation.ROW);
+                    // Do the changes effect the inputPuzzle ... How does that effect the foreach loop?
+                }
+                if (currentCell.isSorted)
                 {
                     RecordedValues.Add(currentCell.Value);
                 }
@@ -85,14 +90,19 @@ namespace SudokuLibrary
 
                 }
             }
-            return inputPuzzle;
+            
         }
-        private Sudoku SortColumn(int ColumnPosition,Sudoku inputPuzzle)
+        private void SortColumn(int ColumnPosition,Sudoku inputPuzzle)
         {
             List<int> RecordedValues = new List<int>();
             foreach(Cell RowValue in inputPuzzle.Grid[ColumnPosition])
             {
-                if(RowValue.isSorted)
+                if (RowValue.Value == RecordedValues[RecordedValues.Count-1])
+                {
+                    TryHotSwitch(RowValue, RecordedValues, ViewOrientation.COLUMN);
+                    // Do the changes effect the inputPuzzle ... How does that effect the foreach loop?
+                }
+                else if(RowValue.isSorted)
                 {
                     RecordedValues.Add(RowValue.Value);
                 }
@@ -107,7 +117,50 @@ namespace SudokuLibrary
                 }
 
             }
-            return inputPuzzle;
+        }
+        /// <summary>
+        /// Attempts to switch Cell values if same value has been previously sorted. 
+        /// </summary>
+        /// <param name="duplicate"></param>
+        /// <param name="restrictions"></param>
+        /// <param name="focus"></param>
+        private bool TryHotSwitch(Cell duplicate, List<int> restrictions, ViewOrientation focus)
+        {
+            
+            if (focus == ViewOrientation.COLUMN)
+            {
+                int startRow = (duplicate.RowPosition / 3) * 3;
+                
+                for (int rowIndex = duplicate.RowPosition;rowIndex < startRow + 3; rowIndex++)
+                {
+                    Cell CandidateCell = Puzzle.Grid[duplicate.ColumnPosition][rowIndex];
+                    if (!restrictions.Contains(CandidateCell.Value) && CandidateCell.isSorted)
+                    {
+                        int tempVal = CandidateCell.Value;
+                        CandidateCell.Value = duplicate.Value;
+                        duplicate.Value = tempVal;
+
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                int startCol = (duplicate.ColumnPosition / 3) * 3;
+                for (int colIndex = duplicate.RowPosition; colIndex < startCol + 3; colIndex++)
+                {
+                    Cell CandidateCell = Puzzle.Grid[colIndex][duplicate.RowPosition];
+                    if (!restrictions.Contains(CandidateCell.Value) && CandidateCell.isSorted)
+                    {
+                        int tempVal = CandidateCell.Value;
+                        CandidateCell.Value = duplicate.Value;
+                        duplicate.Value = tempVal;
+
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
         /// <summary>
         /// Swaps Duplicate value in current Row/Column with a unsorted unique value
